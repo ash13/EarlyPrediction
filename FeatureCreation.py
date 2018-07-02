@@ -25,7 +25,7 @@ print(set(unique_Actions2))
 
 print(data.columns)
 print(data['action_time'])
-
+#next_assignment_wheel_spin,next_assignment_stopout,one hot encoding of correct,bottom out hint cumaltive,used_penultimate_hint,previous_3_states
 
 data['next_assignment_wheel_spin']=-1
 users=list(set(data['user_id']))
