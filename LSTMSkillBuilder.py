@@ -20,12 +20,12 @@ def run_sample():
     here we are creating each sequence to be defined by the distinct value pairs of the 6th and 0th column
     example: each student assignment could be defined as a separate training sample by using columns 6 and 7
     """
-    key_cols = [0]
+    key_cols = [0, 2, 1 ]
 
     """
     define the list of columns containing the features to input into the network
     """
-    cov = list(range(6, 76))
+    cov = list(range(7, 80))
 
     """
     labels are defined as a list of lists
@@ -35,9 +35,9 @@ def run_sample():
 
     This allows for the prediction of multiple outcomes (i.e. completion AND student affect AND ...)
     """
-    label_set1 = [4, 5]
-    label_set2 = [4]
-    label_set3 = [5]
+    label_set1 = [5, 6]
+    label_set2 = [5]
+    label_set3 = [6]
 
 
     """
