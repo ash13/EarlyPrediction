@@ -25,6 +25,7 @@ def generalizeDense(train, train_label, test, test_label):
     print(model.evaluate(x_test, y_test))
 
     pred = model.predict(x=x_test)
+    return pred
 
 def generalizeDecisionTree(train, train_label, test, test_label):    
     from sklearn import tree
@@ -81,8 +82,8 @@ def run_sample():
             actual_w = tfnet.flatten_sequence(tfnet.extract_from_multi_label(wheelspin[test_set], p)).ravel()
             actual_s = tfnet.flatten_sequence(tfnet.extract_from_multi_label(stopout[test_set], p)).ravel()
 
-            predicted_w = generalizeDense(predicted_train, actual_train_w, predicted_test, actual_w)
-            predicted_s = generalizeDense(predicted_train, actual_train_s, predicted_test, actual_s)
+            predicted_w = generalizeDense(predicted_train, actual_train_w, predicted_test, actual_w) # can change generalization functions here 
+            predicted_s = generalizeDense(predicted_train, actual_train_s, predicted_test, actual_s) # can change generalization functions here 
 
 
             print("--------Wheelspin--------")

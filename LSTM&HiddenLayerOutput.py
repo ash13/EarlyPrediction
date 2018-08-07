@@ -3,8 +3,11 @@ import tf_network as tfnet
 from tf_network import Network, Cost, Normalization, Optimizer
 import tensorflow as tf
 
+WHEELSPIN = 0
+STOPOUT  = 1
 
 def run_sample():
+    predictive_metric = WHEELSPIN # 0 WHEELSPIN, 1 STOPOUT
     # we will evaluate with a 5 fold cross validation
     n_folds = 5
 
@@ -14,7 +17,7 @@ def run_sample():
     seq['y'] = np.load('seq_y_sample.npy')
     seq['key'] = np.load('seq_k_sample.npy')
 
-    seq['y'] = tfnet.extract_from_multi_label(seq['y'], 0) # 0 wheelspin, 1 stopout
+    seq['y'] = tfnet.extract_from_multi_label(seq['y'], predictive_metric) 
 
     # we can get the number of input nodes by looking at our formatted data
     n_cov = len(seq['x'][0][0])
@@ -82,10 +85,14 @@ def run_sample():
         pred_train = np.array(pred_train)
         pred = net.predict(x=seq['x'][test_set], layer_index=4)
 
-        name_test = "w_test_set" + str(i) +".npy"
-        name_training = "w_training" + str(i) +".npy"
-        name_pred_train = "w_pred_train" + str(i) +".npy"
-        name_pred = "w_pred" + str(i) + ".npy"
+        if predictive_metric == WHEELSPIN:
+            prefix = "w"
+        else if predictive_metric == STOPOUT:
+            prefix = "s"
+        name_test = prefix + "_test_set" + str(i) +".npy"
+        name_training = prefix + "_training" + str(i) +".npy"
+        name_pred_train = prefix + "_pred_train" + str(i) +".npy"
+        name_pred = prefix + "_pred" + str(i) + ".npy"
 
         np.save(name_test, test_set)
         np.save(name_training, training)
